@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, MessageSquare, User, Send, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 
 const ContactPage = () => {
   const form = useRef();
+  const recaptchaRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +17,24 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+
+  // Check if reCAPTCHA script is loaded properly
+  useEffect(() => {
+    // Add event listener to check if grecaptcha is defined
+    const checkRecaptchaLoaded = () => {
+      if (window.grecaptcha && window.grecaptcha.ready) {
+        setRecaptchaLoaded(true);
+      }
+    };
+
+    // Check immediately and also set an interval to check
+    checkRecaptchaLoaded();
+    const intervalId = setInterval(checkRecaptchaLoaded, 1000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +44,26 @@ const ContactPage = () => {
     }));
   };
 
+  const handleRecaptchaChange = (value) => {
+    setCaptchaValue(value);
+    // Log to verify reCAPTCHA response
+    console.log("reCAPTCHA value:", value);
+  };
+
+  const handleRecaptchaError = () => {
+    console.error("reCAPTCHA failed to load or encountered an error");
+    setSubmitStatus({ 
+      type: 'error', 
+      message: 'There was a problem loading the reCAPTCHA. Please refresh the page and try again.'
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Additional validation for reCAPTCHA
     if (!captchaValue) {
-      setSubmitStatus({ type: 'error', message: 'Please complete the reCAPTCHA' });
+      setSubmitStatus({ type: 'error', message: 'Please complete the reCAPTCHA verification' });
       return;
     }
     
@@ -36,24 +71,41 @@ const ContactPage = () => {
     setSubmitStatus({ type: '', message: '' });
 
     try {
+      // Add the captcha value to the form data
+      const formElement = form.current;
+      const captchaInput = document.createElement('input');
+      captchaInput.type = 'hidden';
+      captchaInput.name = 'g-recaptcha-response';
+      captchaInput.value = captchaValue;
+      formElement.appendChild(captchaInput);
+
       // Replace these with your actual EmailJS credentials
       await emailjs.sendForm(
         'service_k1ixo9r',
         'template_mqx2lzg',
-        form.current,
+        formElement,
         '1YUVIxu0VyuoIqUA4'
       );
+
+      // Remove the temporary input element
+      formElement.removeChild(captchaInput);
 
       setSubmitStatus({
         type: 'success',
         message: 'Message sent successfully! We will get back to you soon.'
       });
+      
+      // Reset form and captcha
       setFormData({ name: '', email: '', message: '' });
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
       setCaptchaValue(null);
     } catch (error) {
+      console.error("Form submission error:", error);
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again.'
+        message: 'Failed to send message. Please try again or contact us directly.'
       });
     } finally {
       setIsSubmitting(false);
@@ -64,17 +116,17 @@ const ContactPage = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"]
+      details: ["+1 703-888-8094", "+1 571-489-3273"]
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      details: ["support@luxuryride.com", "bookings@luxuryride.com"]
+      details: ["info@stallionsls.com"]
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      details: ["123 Luxury Drive", "Beverly Hills, CA 90210"]
+      details: ["5800 16th N Suite 67 Arlington VA 22205"]
     }
   ];
 
@@ -237,9 +289,17 @@ const ContactPage = () => {
               </div>
 
               <div className="recaptcha-container">
+                {!recaptchaLoaded && (
+                  <p className="text-amber-600 text-sm mb-2">
+                    Loading reCAPTCHA verification...
+                  </p>
+                )}
                 <ReCAPTCHA
-                  sitekey="6LfvJt8qAAAAAOibqJlugYVURh05Ugjc8ayIkiL6"
-                  onChange={(value) => setCaptchaValue(value)}
+                  ref={recaptchaRef}
+                  sitekey="6LeYhukqAAAAAPcfx5Xk-kV2e4RbF1YnqvHnZAhK" 
+                  onChange={handleRecaptchaChange}
+                  onError={handleRecaptchaError}
+                  onExpired={() => setCaptchaValue(null)}
                 />
               </div>
 
