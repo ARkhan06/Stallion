@@ -158,7 +158,7 @@ const AboutPage = () => {
             <div>
               <h2 className="text-4xl font-bold mb-6">Meet Our Founder</h2>
               <p className="text-gray-600">
-                With over 15 years of experience in the luxury automotive industry, our founder established DriveElite with a vision to revolutionize the car rental experience in Dubai. His passion for exceptional service and deep understanding of luxury vehicles has shaped our company's commitment to excellence.
+                With over 15 years of experience in the luxury automotive industry, our founder established Stallion with a vision to revolutionize the car rental experience in Dubai. His passion for exceptional service and deep understanding of luxury vehicles has shaped our company's commitment to excellence.
               </p>
             </div>
             <div>
