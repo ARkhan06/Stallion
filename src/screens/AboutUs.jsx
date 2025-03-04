@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Sedan from "../assets/sedan.jpg";
 import SUV1 from "../assets/SUV1.jfif";
-import Got from "../assets/Got.jpg";
+import Founder from "../assets/Founder.jpg"
 
 
 const AboutPage = () => {
@@ -144,7 +144,7 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <img
-              src={Got}
+              src={Founder}
               alt="Founder"
               className="rounded-lg shadow-xl w-full"
             />
