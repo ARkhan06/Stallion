@@ -18,7 +18,7 @@ const AdminDashboard = () => {
     setError(null);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:3001/api/bookings/${timeFilter}`, {
+      const response = await fetch(`https://stallionsls.com/api/bookings/${timeFilter}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
