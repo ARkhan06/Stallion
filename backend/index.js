@@ -7,32 +7,35 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const userAuth = require("./routes/userAuthRoute");
 const user = require("./routes/userRoutes");
 
-// Define allowed origins
+// Define allowed origins explicitly
 const allowedOrigins = [
-  'http://localhost:5173',  // Vite
-  'http://localhost:3000',  // React
+  'http://localhost:5173',  // Vite (Frontend)
+  'http://localhost:3000',  // Common React Port
   'http://127.0.0.1:5173',
   'http://127.0.0.1:3000',
-  'https://stallionsls.com',  // Your production domain
+  'https://stallionsls.com',  
   'https://www.stallionsls.com'
 ];
 
 // CORS Configuration
 const corsOptions = {
-  origin: '*',  // Allows requests from any origin (all devices & IPs)
-  credentials: true, // Allow cookies/auth headers
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow cookies & authorization headers
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: [
-    'Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'
-  ],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   exposedHeaders: ['Content-Range', 'X-Content-Range'],
-  maxAge: 600 // Cache preflight results for 10 minutes
+  maxAge: 600 // Cache preflight response for 10 minutes
 };
 
 // Apply CORS Middleware
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // Handle preflight OPTIONS requests
-
 
 // Body Parsers
 app.use(express.json());
