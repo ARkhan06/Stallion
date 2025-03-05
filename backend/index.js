@@ -19,7 +19,9 @@ const corsOptions = {
       'http://localhost:5173',  // Vite default
       'http://localhost:3000',  // Common React port
       'http://127.0.0.1:5173',
-      'http://127.0.0.1:3000'
+      'http://127.0.0.1:3000',
+      'https://stallionsls.com',  // Add your domain
+      'https://www.stallionsls.com'
       // Add more origins as needed
     ];
 
