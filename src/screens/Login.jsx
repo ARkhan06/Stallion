@@ -23,7 +23,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://stallionsls.com/auth/login",
+        "https://stallionsls.com/api/auth/login",
         { email, password },
         {
           withCredentials: true,

@@ -580,7 +580,7 @@ const BookingPage = () => {
         bookingData.routeDetails = routeDetails;
       }
 
-      const response = await fetch('https://stallionsls.com/api/bookings', {
+      const response = await fetch('https://stallionsls.com/api/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
