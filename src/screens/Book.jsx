@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, MapPin, Users, Briefcase, Phone, Mail, ChevronUp, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -12,9 +12,399 @@ import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
 import BookingsDisplay from '../components/BookingDisplay';
 
+// Leaflet Map Components (OpenStreetMap - free)
+const MapSelector = ({ location, setLocation, label, error }) => {
+  const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const [marker, setMarker] = useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Initialize the map when component mounts
+  useEffect(() => {
+    // Create link for Leaflet CSS if not already present
+    if (!document.querySelector('link[href*="leaflet.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+      link.crossOrigin = '';
+      document.head.appendChild(link);
+    }
+
+    // Load Leaflet JS if not already loaded
+    if (!window.L) {
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+      script.crossOrigin = '';
+      script.async = true;
+      
+      script.onload = initMap;
+      document.head.appendChild(script);
+    } else {
+      initMap();
+    }
+
+    return () => {
+      if (map) map.remove();
+    };
+  }, []);
+
+  const initMap = () => {
+    // Default center (Dubai)
+    const defaultCenter = [25.2048, 55.2708];
+    
+    // Create map instance
+    const mapInstance = window.L.map(mapRef.current).setView(defaultCenter, 12);
+    
+    // Add OpenStreetMap tile layer
+    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapInstance);
+    
+    // Add a marker
+    const markerInstance = window.L.marker(defaultCenter, {
+      draggable: true
+    }).addTo(mapInstance);
+    
+    // When marker is dragged, update location
+    markerInstance.on('dragend', async () => {
+      const position = markerInstance.getLatLng();
+      try {
+        // Reverse geocoding with Nominatim
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.lat}&lon=${position.lng}&zoom=18&addressdetails=1`,
+          { headers: { 'Accept-Language': 'en-US,en' } }
+        );
+        const data = await response.json();
+        if (data && data.display_name) {
+          setLocation(data.display_name);
+        }
+      } catch (error) {
+        console.error('Error with reverse geocoding:', error);
+      }
+    });
+    
+    setMap(mapInstance);
+    setMarker(markerInstance);
+    
+    // If we already have a location, try to center the map there
+    if (location) {
+      searchLocation(location);
+    }
+  };
+
+  const searchLocation = async (query) => {
+    if (!query) return;
+    
+    setIsSearching(true);
+    try {
+      // Geocoding with Nominatim
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`,
+        { headers: { 'Accept-Language': 'en-US,en' } }
+      );
+      const data = await response.json();
+      
+      if (data && data.length > 0) {
+        setSearchResults(data);
+        
+        // If we're selecting a specific result from the dropdown, update the map
+        if (query === location) {
+          const result = data[0];
+          const position = [parseFloat(result.lat), parseFloat(result.lon)];
+          
+          if (map && marker) {
+            map.setView(position, 15);
+            marker.setLatLng(position);
+          }
+        }
+      } else {
+        setSearchResults([]);
+      }
+    } catch (error) {
+      console.error('Error searching location:', error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // Search when query changes
+  useEffect(() => {
+    const delaySearch = setTimeout(() => {
+      if (searchQuery) {
+        searchLocation(searchQuery);
+      } else {
+        setSearchResults([]);
+      }
+    }, 500);
+    
+    return () => clearTimeout(delaySearch);
+  }, [searchQuery]);
+
+  // Search when location changes (for initial load)
+  useEffect(() => {
+    if (location && map && marker) {
+      searchLocation(location);
+    }
+  }, [location, map, marker]);
+
+  const handleResultClick = (result) => {
+    setLocation(result.display_name);
+    setSearchQuery(result.display_name);
+    setSearchResults([]);
+    
+    const position = [parseFloat(result.lat), parseFloat(result.lon)];
+    if (map && marker) {
+      map.setView(position, 15);
+      marker.setLatLng(position);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <div className="relative">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder={`Search for ${label.toLowerCase()}`}
+          className={`w-full p-3 border rounded-lg pl-10 ${error ? 'border-red-500' : ''}`}
+        />
+        <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+        
+        {/* Search results dropdown */}
+        {searchResults.length > 0 && (
+          <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-auto">
+            {searchResults.map((result, index) => (
+              <div
+                key={index}
+                className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                onClick={() => handleResultClick(result)}
+              >
+                {result.display_name}
+              </div>
+            ))}
+          </div>
+        )}
+        
+        {isSearching && (
+          <div className="absolute right-3 top-3">
+            <div className="animate-spin h-4 w-4 border-2 border-gray-500 rounded-full border-t-transparent"></div>
+          </div>
+        )}
+        
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      </div>
+      <div ref={mapRef} className="w-full h-48 rounded-lg border mt-2 z-0"></div>
+    </div>
+  );
+};
+
+// Route map component
+const RouteMap = ({ pickup, dropoff }) => {
+  const mapRef = useRef(null);
+  const [routeInfo, setRouteInfo] = useState(null);
+  
+  useEffect(() => {
+    if (!window.L || !pickup || !dropoff) return;
+    
+    // Create map instance
+    const map = window.L.map(mapRef.current);
+    
+    // Add OpenStreetMap tile layer
+    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // Function to get coordinates from location search
+    const getCoordinates = async (location) => {
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}&limit=1`,
+          { headers: { 'Accept-Language': 'en-US,en' } }
+        );
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          return [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+        }
+        return null;
+      } catch (error) {
+        console.error('Error getting coordinates:', error);
+        return null;
+      }
+    };
+    
+    // Function to get route using OSRM
+    const getRoute = async (from, to) => {
+      try {
+        // Convert coordinates from [lat, lon] to [lon, lat] for OSRM
+        const fromCoord = `${from[1]},${from[0]}`;
+        const toCoord = `${to[1]},${to[0]}`;
+        
+        const response = await fetch(
+          `https://router.project-osrm.org/route/v1/driving/${fromCoord};${toCoord}?overview=full&geometries=polyline`
+        );
+        const data = await response.json();
+        
+        if (data && data.routes && data.routes.length > 0) {
+          return {
+            geometry: data.routes[0].geometry,
+            distance: (data.routes[0].distance / 1000).toFixed(1), // km
+            duration: Math.round(data.routes[0].duration / 60) // minutes
+          };
+        }
+        return null;
+      } catch (error) {
+        console.error('Error getting route:', error);
+        return null;
+      }
+    };
+    
+    // Main function to fetch and display the route
+    const showRoute = async () => {
+      try {
+        // Get coordinates for pickup and dropoff
+        const pickupCoords = await getCoordinates(pickup);
+        const dropoffCoords = await getCoordinates(dropoff);
+        
+        if (!pickupCoords || !dropoffCoords) {
+          console.error('Could not find coordinates for one or both locations');
+          return;
+        }
+        
+        // Add markers for pickup and dropoff
+        const pickupMarker = window.L.marker(pickupCoords, {
+          icon: window.L.divIcon({
+            html: '<div class="bg-green-500 w-4 h-4 rounded-full border-2 border-white"></div>',
+            className: 'custom-div-icon'
+          })
+        }).addTo(map).bindPopup('Pickup');
+        
+        const dropoffMarker = window.L.marker(dropoffCoords, {
+          icon: window.L.divIcon({
+            html: '<div class="bg-red-500 w-4 h-4 rounded-full border-2 border-white"></div>',
+            className: 'custom-div-icon'
+          })
+        }).addTo(map).bindPopup('Dropoff');
+        
+        // Get the route
+        const route = await getRoute(pickupCoords, dropoffCoords);
+        
+        if (route) {
+          // Decode the polyline
+          const decodedPolyline = window.L.Polyline.fromEncoded(route.geometry).getLatLngs();
+          
+          // Add the route to the map
+          const routeLine = window.L.polyline(decodedPolyline, {
+            color: '#4a90e2',
+            weight: 6,
+            opacity: 0.8,
+            lineJoin: 'round'
+          }).addTo(map);
+          
+          // Fit the map to the route
+          const bounds = routeLine.getBounds();
+          map.fitBounds(bounds, { padding: [30, 30] });
+          
+          // Set route info
+          setRouteInfo({
+            distance: `${route.distance} km`,
+            duration: `${route.duration} min`
+          });
+        } else {
+          // If route calculation fails, just show the markers
+          const bounds = window.L.latLngBounds([pickupCoords, dropoffCoords]);
+          map.fitBounds(bounds, { padding: [30, 30] });
+          
+          // Estimate distance and duration (straight line)
+          const distance = map.distance(pickupCoords, dropoffCoords) / 1000; // km
+          const estimatedSpeed = 50; // km/h
+          const duration = Math.round((distance / estimatedSpeed) * 60); // minutes
+          
+          setRouteInfo({
+            distance: `~${distance.toFixed(1)} km (straight line)`,
+            duration: `~${duration} min (estimated)`
+          });
+        }
+      } catch (error) {
+        console.error('Error displaying route:', error);
+      }
+    };
+    
+    // Add Polyline.encoded if not available
+    if (!window.L.Polyline.fromEncoded) {
+      // Polyline encoding/decoding functions
+      window.L.Polyline.fromEncoded = function(encoded, options) {
+        const decode = function(encoded) {
+          let points = [];
+          let index = 0, len = encoded.length;
+          let lat = 0, lng = 0;
+          
+          while (index < len) {
+            let b, shift = 0, result = 0;
+            
+            do {
+              b = encoded.charAt(index++).charCodeAt(0) - 63;
+              result |= (b & 0x1f) << shift;
+              shift += 5;
+            } while (b >= 0x20);
+            
+            let dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+            
+            shift = 0;
+            result = 0;
+            
+            do {
+              b = encoded.charAt(index++).charCodeAt(0) - 63;
+              result |= (b & 0x1f) << shift;
+              shift += 5;
+            } while (b >= 0x20);
+            
+            let dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+            
+            points.push([lat * 1e-5, lng * 1e-5]);
+          }
+          
+          return points;
+        };
+        
+        return new window.L.Polyline(decode(encoded), options);
+      };
+    }
+    
+    showRoute();
+    
+    return () => {
+      map.remove();
+    };
+  }, [pickup, dropoff]);
+  
+  return (
+    <div className="space-y-2">
+      <div ref={mapRef} className="w-full h-64 rounded-lg border mt-2"></div>
+      {routeInfo && (
+        <div className="flex justify-between text-sm text-gray-700 mt-2">
+          <div>Distance: <span className="font-medium">{routeInfo.distance}</span></div>
+          <div>Duration: <span className="font-medium">{routeInfo.duration}</span></div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Main BookingPage component
 const BookingPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -41,7 +431,7 @@ const BookingPage = () => {
       name: 'Executive Vans',
       price: "2000",
       transmission: "Automatic",
-      seats: 7,
+      seats: 14,
       luggage: 6,
       speed: 4200,
       year: "2024"
@@ -63,18 +453,18 @@ const BookingPage = () => {
       name: 'Luxury MiniBus',
       price: "3000",
       transmission: "Automatic",
-      seats: 9,
-      luggage: 8,
+      seats: 35,
+      luggage: 12,
       speed: 3800,
       year: "2024"
     },
     {
       id: 5,
       image: Bus,
-      name: 'Luxury Bus',
+      name: 'Luxury Motor Coach',
       price: "4000",
       transmission: "Automatic",
-      seats: 16,
+      seats: 50,
       luggage: 16,
       speed: 3500,
       year: "2024"
@@ -106,6 +496,7 @@ const BookingPage = () => {
   const [luggage, setLuggage] = useState(0);
   const [errors, setErrors] = useState({});
   const [submitMessage, setSubmitMessage] = useState('');
+  const [routeDetails, setRouteDetails] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -118,6 +509,21 @@ const BookingPage = () => {
         ...prev,
         [name]: ''
       }));
+    }
+  };
+
+  // Update location directly (used by map components)
+  const updatePickupLocation = (value) => {
+    setFormData(prev => ({ ...prev, pickupLocation: value }));
+    if (errors.pickupLocation) {
+      setErrors(prev => ({ ...prev, pickupLocation: '' }));
+    }
+  };
+
+  const updateDropoffLocation = (value) => {
+    setFormData(prev => ({ ...prev, dropoffLocation: value }));
+    if (errors.dropoffLocation) {
+      setErrors(prev => ({ ...prev, dropoffLocation: '' }));
     }
   };
 
@@ -158,22 +564,29 @@ const BookingPage = () => {
     setIsLoading(true);
 
     try {
+      const bookingData = {
+        ...formData,
+        passengers,
+        luggage,
+        selectedCar: {
+          id: selectedCar.id,
+          name: selectedCar.name,
+          price: selectedCar.price
+        }
+      };
+
+      // If we have route details, add them to the booking
+      if (routeDetails) {
+        bookingData.routeDetails = routeDetails;
+      }
+
       const response = await fetch('https://stallionsls.com/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          ...formData,
-          passengers,
-          luggage,
-          selectedCar: {
-            id: selectedCar.id,
-            name: selectedCar.name,
-            price: selectedCar.price
-          }
-        })
+        body: JSON.stringify(bookingData)
       });
 
       const data = await response.json();
@@ -201,6 +614,7 @@ const BookingPage = () => {
       setSelectedCar(null);
       setPassengers(1);
       setLuggage(0);
+      setRouteDetails(null);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -266,37 +680,72 @@ const BookingPage = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Pickup Location</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="pickupLocation"
-                    value={formData.pickupLocation}
-                    onChange={handleInputChange}
-                    placeholder="Enter pickup location"
-                    className={`w-full p-3 border rounded-lg pl-10 ${errors.pickupLocation ? 'border-red-500' : ''}`}
+              {showMap ? (
+                <>
+                  <MapSelector
+                    location={formData.pickupLocation}
+                    setLocation={updatePickupLocation}
+                    label="Pickup Location"
+                    error={errors.pickupLocation}
                   />
-                  <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                  {errors.pickupLocation && <p className="text-red-500 text-sm mt-1">{errors.pickupLocation}</p>}
-                </div>
-              </div>
+                  
+                  <MapSelector
+                    location={formData.dropoffLocation}
+                    setLocation={updateDropoffLocation}
+                    label="Drop-off Location"
+                    error={errors.dropoffLocation}
+                  />
+                  
+                  {formData.pickupLocation && formData.dropoffLocation && (
+                    <div className="bg-gray-50 p-4 rounded-lg border">
+                      <h3 className="font-medium mb-2">Route Information</h3>
+                      <RouteMap pickup={formData.pickupLocation} dropoff={formData.dropoffLocation} />
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Pickup Location</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="pickupLocation"
+                        value={formData.pickupLocation}
+                        onChange={handleInputChange}
+                        placeholder="Enter pickup location"
+                        className={`w-full p-3 border rounded-lg pl-10 ${errors.pickupLocation ? 'border-red-500' : ''}`}
+                      />
+                      <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      {errors.pickupLocation && <p className="text-red-500 text-sm mt-1">{errors.pickupLocation}</p>}
+                    </div>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Drop-off Location</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="dropoffLocation"
-                    value={formData.dropoffLocation}
-                    onChange={handleInputChange}
-                    placeholder="Enter drop-off location"
-                    className={`w-full p-3 border rounded-lg pl-10 ${errors.dropoffLocation ? 'border-red-500' : ''}`}
-                  />
-                  <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                  {errors.dropoffLocation && <p className="text-red-500 text-sm mt-1">{errors.dropoffLocation}</p>}
-                </div>
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Drop-off Location</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="dropoffLocation"
+                        value={formData.dropoffLocation}
+                        onChange={handleInputChange}
+                        placeholder="Enter drop-off location"
+                        className={`w-full p-3 border rounded-lg pl-10 ${errors.dropoffLocation ? 'border-red-500' : ''}`}
+                      />
+                      <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      {errors.dropoffLocation && <p className="text-red-500 text-sm mt-1">{errors.dropoffLocation}</p>}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setShowMap(!showMap)}
+                className="text-sm text-gray-600 hover:text-gray-900 underline focus:outline-none mb-2"
+              >
+                {showMap ? "Hide Map Selection" : "Use Map to Select Locations"}
+              </button>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>

@@ -12,6 +12,7 @@ import Sedan from "../assets/sedan.jpg";
 import Limo from "../assets/Limo.jpg";
 import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
+import fleet from "../assets/fleet.jfif"
 import CarDetailModal from '../components/CarDetail'; 
 
 const FleetPage = () => {
@@ -33,7 +34,7 @@ const FleetPage = () => {
       id: 1, 
       image: Sedan, 
       name: 'Luxury Sedan',
-      price: "1500",
+      
       transmission: "Automatic",
       seats: 5,
       luggage: 4,
@@ -44,9 +45,9 @@ const FleetPage = () => {
       id: 2, 
       image: MiniVan, 
       name: 'Executive Vans',
-      price: "2000",
+     
       transmission: "Automatic",
-      seats: 7,
+      seats: 14,
       luggage: 6,
       speed: 4200,
       year: "2024"
@@ -55,7 +56,7 @@ const FleetPage = () => {
       id: 3, 
       image: SUV, 
       name: 'Luxury SUVs',
-      price: "2500",
+     
       transmission: "Automatic",
       seats: 6,
       luggage: 5,
@@ -66,20 +67,20 @@ const FleetPage = () => {
       id: 4, 
       image: Van, 
       name: 'Luxury MiniBus',
-      price: "3000",
+     
       transmission: "Automatic",
-      seats: 9,
-      luggage: 8,
+      seats: 35,
+      luggage: 12,
       speed: 3800,
       year: "2024"
     },
     { 
       id: 5, 
       image: Bus, 
-      name: 'Luxury Bus',
-      price: "4000",
+      name: 'Luxury Motor Coach',
+     
       transmission: "Automatic",
-      seats: 16,
+      seats: 50,
       luggage: 16,
       speed: 3500,
       year: "2024"
@@ -88,7 +89,7 @@ const FleetPage = () => {
       id: 6, 
       image: Limo, 
       name: 'Stretch Limo',
-      price: "5000",
+      
       transmission: "Automatic",
       seats: 8,
       luggage: 4,
@@ -127,7 +128,7 @@ const FleetPage = () => {
       >
         <div className="absolute inset-0">
           <img
-            src={SUV1}
+            src={fleet}
             alt="Luxury cars fleet"
             className="w-full h-full object-cover opacity-70"
           />
@@ -198,8 +199,7 @@ const FleetPage = () => {
               <div className="p-3">
                 <h3 className="text-2xl font-bold mb-1 text-[#111827]">{car.name}</h3>
                 <div className="flex items-center mb-3">
-                  <span className="text-3xl font-bold text-[#111827]">AED {car.price}</span>
-                  <span className="text-gray-600 ml-2">/ DAY</span>
+                 
                 </div>
                 
                 <div className="grid grid-cols-4 gap-4 text-center text-gray-700">

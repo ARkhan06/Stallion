@@ -24,7 +24,7 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-3">Stallion</h3>
           </Link>
           <p className="text-gray-400 text-sm">
-            Premium car rental services for those who appreciate quality and comfort.
+            Premium Car Chauffeur Services for those who appreciate quality and comfort.
           </p>
         </div>
 
@@ -63,10 +63,11 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-3">Contact Us</h4>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li>1234 Luxury Drive</li>
+           
             <li>5800 16th N Suite 67 Arlington VA 22205</li>
             <li>info@stallion.com</li>
             <li>+1 571-489-3273</li>
+            <li>+1 703-888-8094</li>
           </ul>
         </div>
       </div>

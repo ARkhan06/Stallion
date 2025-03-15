@@ -11,6 +11,7 @@ import Sedan from "../assets/sedan.jpg";
 import Limo from "../assets/Limo.jpg";
 import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
+import HomeImg from "../assets/Black.jpg"
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -28,7 +29,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 z-10" />
         <div className="absolute inset-0">
           <img 
-            src={SUV}
+            src={HomeImg}
             alt="Luxury car on mountain road" 
             className="w-full h-full object-cover"
           />
@@ -80,7 +81,7 @@ const Home = () => {
           <div className="grid md:grid-cols-4 gap-6">
             {[
               { icon: Car, title: 'Premium Fleet', desc: 'Luxury and performance vehicles' },
-              { icon: Calendar, title: 'Flexible Booking', desc: 'Daily to monthly rentals' },
+              { icon: Calendar, title: 'Flexible Booking', desc: 'Daily to monthly Chauffeur services' },
               { icon: MapPin, title: 'Multiple Locations', desc: 'Convenient pickup points' },
               { icon: Clock, title: '24/7 Support', desc: 'Always here to help' }
             ].map((feature, index) => (
@@ -112,7 +113,7 @@ const Home = () => {
           <div>
             <h2 className="text-3xl font-bold mb-4">Unlock the Road</h2>
             <p className="text-gray-600 mb-6">
-              Welcome to our car rental service, where convenience and flexibility meet exceptional quality. Discover a wide range of vehicles meticulously maintained to ensure a seamless experience.
+              Welcome to our Car Chauffeur Service, where convenience and flexibility meet exceptional quality. Discover a wide range of vehicles meticulously maintained to ensure a seamless experience.
             </p>
             <div className="grid grid-cols-2 gap-4 mb-6">
               {[
@@ -167,17 +168,22 @@ const Home = () => {
               From the sleek and sporty to the spacious and luxurious, discover your perfect ride.
             </p>
             <div className="space-y-3 mb-6">
-              {['Compact Cars', 'Midsize Sedans', 'SUVs & Crossovers'].map((category) => (
-                <motion.div 
-                  key={category}
-                  whileHover={{ x: 10 }}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer"
-                >
-                  <span className="font-medium">{category}</span>
-                  <ChevronRight className="w-5 h-5" />
-                </motion.div>
-              ))}
-            </div>
+      {[ 'Luxury Sedans', 'Luxury SUVs', 'Stretch Limo'].map((category) => (
+        <Link 
+          key={category} 
+          to={`/fleet?category=${encodeURIComponent(category)}`}
+          className="block"
+        >
+          <motion.div
+            whileHover={{ x: 10 }}
+            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer"
+          >
+            <span className="font-medium">{category}</span>
+            <ChevronRight className="w-5 h-5" />
+          </motion.div>
+        </Link>
+      ))}
+    </div>
             <div className="flex space-x-4">
               <Link to="/fleet">
                 <motion.button
@@ -210,11 +216,11 @@ const Home = () => {
           <h2 className="text-4xl font-bold mb-12 text-center">Featured Vehicles</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { image: Sedan, name: 'Luxury Sedan', price: '299' },
-              { image: MiniVan, name: 'Executive Vans', price: '399' },
-              { image: SUV, name: 'Luxury SUVs', price: '499' },
+              { image: Sedan, name: 'Luxury Sedan' },
+              { image: MiniVan, name: 'Executive Vans' },
+              { image: SUV, name: 'Luxury SUVs' },
               { image: Van, name: 'Luxury MiniBus', price: '299' },
-              { image: Bus, name: 'Luxury Bus', price: '399' },
+              { image: Bus, name: 'Luxury Motor Coach', price: '399' },
               { image: Limo, name: 'Stretch Limo', price: '499' }
             ].map((car, index) => (
               <motion.div
@@ -232,8 +238,7 @@ const Home = () => {
                     className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{car.name}</h3>
-                <p className="text-gray-600">From ${car.price}/day</p>
+                <h3 className="text-xl font-semibold mb-0">{car.name}</h3>
                 <Link to="/booking">
                   <button className="mt-4 bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition-colors">
                     Book Now

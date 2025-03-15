@@ -52,8 +52,7 @@ const AboutPage = () => {
           transition={{ delay: 0.8 }}
           className="max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed mx-auto"
         >
-          We offer many different services such as airport transportation, private aviation services, pier & cruise transportation, wedding & prom transportation, drives to casinos or business travel, family travel, and many more! Stallionz Limousine is your one-stop destination for all your transportation needs. If you are a travel agent, book your client with Stallionz Limousine and get a 5% commission on every ride.
-        </motion.p>
+At Stallions Limousine, we specialize in delivering a premium chauffeur experience tailored to your every need. Our fleet of luxurious vehicles and professional chauffeurs ensure that you arrive in style and comfort, whether for business or pleasure. With a commitment to punctuality, discretion, and unmatched service, we make every journey memorable.        </motion.p>
       </div>
     </div>
       </motion.div>
@@ -71,14 +70,14 @@ const AboutPage = () => {
             <div>
               <h2 className="text-4xl font-bold mb-6">Our Journey</h2>
               <p className="text-gray-600">
-                Founded in 2020, DriveElite emerged from a vision to transform the luxury car rental experience. What began as a small fleet of premium vehicles has evolved into Dubai's most prestigious collection of luxury automobiles, serving distinguished clients who demand excellence.
-              </p>
+              The journey of Stallions Limousine began with a simple yet powerful vision: to redefine the way people experience luxury transportation. What started as a small, family-owned business with a single vehicle has grown into a trusted name in the industry, known for impeccable service and a commitment to excellence.
+
+From the very beginning, we have focused on delivering more than just a ride. Our goal has always been to create memorable experiences for our clients, whether it’s for a wedding, a corporate event, or a special celebration. Each journey is an opportunity to make lasting impressions, and we take pride in being a part of those important moments.              </p>
             </div>
             <div>
               <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
               <p className="text-gray-600">
-                We strive to deliver unparalleled luxury mobility solutions, combining exceptional vehicles with personalized service. Our commitment goes beyond providing cars; we create memorable experiences that reflect the sophistication and aspirations of our clients.
-              </p>
+              Our mission is simple: to deliver the highest quality limousine service with a personal touch. We understand that each client is unique, and we go the extra mile to accommodate your specific requests, ensuring a truly unforgettable ride.              </p>
             </div>
           </motion.div>
           <motion.div
@@ -158,14 +157,12 @@ const AboutPage = () => {
             <div>
               <h2 className="text-4xl font-bold mb-6">Meet Our Founder</h2>
               <p className="text-gray-600">
-                With over 15 years of experience in the luxury automotive industry, our founder established Stallion with a vision to revolutionize the car rental experience in Dubai. His passion for exceptional service and deep understanding of luxury vehicles has shaped our company's commitment to excellence.
-              </p>
+              At the heart of Stallions Limousine is our founder, a passionate entrepreneur with a vision to elevate the transportation experience. With a deep-rooted belief in delivering exceptional service and making every journey unforgettable, Our founder established the company with one simple goal: to provide clients with luxury, reliability, and comfort—every time.              </p>
             </div>
             <div>
               <h2 className="text-4xl font-bold mb-6">Leadership & Expertise</h2>
               <p className="text-gray-600">
-                Our leadership team brings together decades of experience in luxury automotive services, hospitality, and customer experience. This combination of expertise ensures that every aspect of our service meets the highest standards of quality and professionalism.
-              </p>
+              At Stallions Limousine, our leadership team is the cornerstone of our success. Led by our founder and supported by a dedicated group of professionals, we bring decades of combined experience and expertise to the limousine and transportation industry. Our commitment to excellence drives every aspect of our service, ensuring that each client receives the highest level of care and attention.              </p>
             </div>
           </motion.div>
         </div>
@@ -182,7 +179,7 @@ const AboutPage = () => {
           <div className="grid md:grid-cols-4 gap-6">
             {[
               { icon: Car, title: 'Premium Fleet', desc: 'Luxury and performance vehicles' },
-              { icon: Calendar, title: 'Flexible Booking', desc: 'Daily to monthly rentals' },
+              { icon: Calendar, title: 'Flexible Booking', desc: 'Daily to monthly chauffeur services' },
               { icon: MapPin, title: 'Multiple Locations', desc: 'Convenient pickup points' },
               { icon: Clock, title: '24/7 Support', desc: 'Always here to help' }
             ].map((feature, index) => (

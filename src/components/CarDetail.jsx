@@ -45,10 +45,7 @@ const CarDetailModal = ({ isOpen, onClose, car }) => {
               {/* Car details */}
               <div>
                 <h2 className="text-4xl font-bold text-gray-900">{car.name}</h2>
-                <div className="flex items-baseline mt-4 mb-8">
-                  <span className="text-4xl font-bold text-gray-900">AED {car.price}</span>
-                  <span className="text-gray-600 ml-2">/ DAY</span>
-                </div>
+              
 
                 <div className="space-y-6">
                   {/* Specifications */}
