@@ -844,54 +844,50 @@ const BookingPage = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="space-y-4"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Select Vehicle</h2>
-            {errors.car && <p className="text-red-500 text-sm mb-4">{errors.car}</p>}
-            
-            <div className="grid grid-cols-1 gap-4">
-              {cars.map((car) => (
-                <motion.div
-                  key={car.id}
-                  whileHover={{ scale: 1.01 }}
-                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    selectedCar?.id === car.id
-                      ? 'border-gray-900 bg-gray-900 text-white'
-                      : 'border-gray-200 hover:border-gray-900'
-                  }`}
-                  onClick={() => setSelectedCar(car)}
-                >
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={car.image}
-                      alt={car.name}
-                      className="w-24 h-24 object-cover rounded-lg"
-                    />
-                    <div className="flex-1">
-                      <h3 className="font-bold text-lg">{car.name}</h3>
-                      <p className="text-sm opacity-75">{car.transmission}</p>
-                      <div className="flex items-center space-x-4 mt-2">
-                        <span className="flex items-center">
-                          <Users className="w-4 h-4 mr-1" />
-                          {car.seats} Seats
-                        </span>
-                        <span className="flex items-center">
-                          <Briefcase className="w-4 h-4 mr-1" />
-                          {car.luggage} Luggage
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-bold text-xl">AED {car.price}</div>
-                      <div className="text-sm opacity-75">per day</div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+  initial={{ opacity: 0, x: 20 }}
+  animate={{ opacity: 1, x: 0 }}
+  className="space-y-4"
+>
+  <h2 className="text-2xl font-bold text-gray-900 mb-6">Select Vehicle</h2>
+  {errors.car && <p className="text-red-500 text-sm mb-4">{errors.car}</p>}
+  
+  <div className="grid grid-cols-1 gap-4">
+    {cars.map((car) => (
+      <motion.div
+        key={car.id}
+        whileHover={{ scale: 1.01 }}
+        className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+          selectedCar?.id === car.id
+            ? 'border-gray-900 bg-gray-900 text-white'
+            : 'border-gray-200 hover:border-gray-900'
+        }`}
+        onClick={() => setSelectedCar(car)}
+      >
+        <div className="flex items-center space-x-4">
+          <img
+            src={car.image}
+            alt={car.name}
+            className="w-24 h-24 object-cover rounded-lg"
+          />
+          <div className="flex-1">
+            <h3 className="font-bold text-lg">{car.name}</h3>
+            <p className="text-sm opacity-75">{car.transmission}</p>
+            <div className="flex items-center space-x-4 mt-2">
+              <span className="flex items-center">
+                <Users className="w-4 h-4 mr-1" />
+                {car.seats} Seats
+              </span>
+              <span className="flex items-center">
+                <Briefcase className="w-4 h-4 mr-1" />
+                {car.luggage} Luggage
+              </span>
             </div>
-          </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+</motion.div>
         </form>
         <BookingsDisplay/>
       </div>

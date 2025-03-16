@@ -154,7 +154,7 @@ const Navbar = () => {
                   ST
                 </span>
                 <span className="text-xl font-semibold text-[#111827]">
-                  Stallion
+                Stallions Limousine
                 </span>
               </motion.div>
             </Link>
