@@ -120,7 +120,7 @@ const Home = () => {
                 { title: 'Explore Nearby Attractions', desc: 'Plan your adventure' },
                 { title: 'Car Delivery', desc: 'Flexible drop-off points' },
                 { title: 'Plan Your Route', desc: 'Detailed trip planning' },
-                { title: 'Convenient', desc: 'Hassle-free rentals' }
+                { title: 'Convenient', desc: 'Hassle-free booking' }
               ].map((item) => (
                 <div key={item.title} className="space-y-1">
                   <h3 className="font-semibold">{item.title}</h3>

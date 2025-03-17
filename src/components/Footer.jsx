@@ -10,7 +10,7 @@ const Footer = () => {
   ];
 
   const serviceLinks = [
-    { name: 'Car Rental', path: '/fleet' },
+    { name: 'Tours', path: '/services' },
     { name: 'Airport Transfer', path: '/services' },
     { name: 'Corporate Services', path: '/services' },
     { name: 'Event Transport', path: '/services' }
@@ -21,7 +21,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-6">
         <div>
           <Link to="/" className="block">
-            <h3 className="text-xl font-bold mb-3">Stallion</h3>
+            <h3 className="text-xl font-bold mb-3">Stallions Limousine</h3>
           </Link>
           <p className="text-gray-400 text-sm">
             Premium Car Chauffeur Services for those who appreciate quality and comfort.
@@ -65,7 +65,7 @@ const Footer = () => {
           <ul className="space-y-2 text-sm text-gray-400">
            
             <li>5800 16th N Suite 67 Arlington VA 22205</li>
-            <li>info@stallion.com</li>
+            <li>info@stallionsls.com</li>
             <li>+1 571-489-3273</li>
             <li>+1 703-888-8094</li>
           </ul>

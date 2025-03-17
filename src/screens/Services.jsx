@@ -19,9 +19,8 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
+import Services from "../assets/Services.jfif"
 // Import hero image (replace with your actual image)
-import HeroImage from '../assets/MiniVan.jfif';
 
 const ServiceCard = ({ icon: Icon, title, description, delay, index }) => {
     const gridPositions = [
@@ -209,7 +208,7 @@ const ServicesPage = () => {
       <div className="relative h-screen">
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/70 z-10" />
         <img
-          src={HeroImage}
+          src={Services}
           alt="Luxury Transportation"
           className="w-full h-full object-cover"
         />
