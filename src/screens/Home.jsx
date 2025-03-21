@@ -11,7 +11,9 @@ import Sedan from "../assets/sedan.jpg";
 import Limo from "../assets/Limo.jpg";
 import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
-import HomeImg from "../assets/Black.jpg"
+import HomeImg from "../assets/Black.jpg";
+import Home1 from "../assets/Home1.jfif";
+import Home2 from "../assets/Home2.jfif"
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -139,7 +141,7 @@ const Home = () => {
           </div>
           <div className="relative">
             <img 
-              src={Sedan}
+              src={Home1}
               alt="Luxury sedan"
               className="rounded-lg shadow-xl"
             />
@@ -157,7 +159,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
           <div className="relative">
             <img 
-              src={SUV1}
+              src={Home2}
               alt="Premium vehicle"
               className="rounded-lg shadow-xl"
             />

@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import Sedan from "../assets/sedan.jpg";
 import SUV1 from "../assets/SUV1.jfif";
 import Founder from "../assets/Founder.jpg"
+import AboutUS from "../assets/AboutUs.jfif"
 
 
 const AboutPage = () => {
@@ -22,19 +23,15 @@ const AboutPage = () => {
       >
         <div className="absolute inset-0">
           <img
-            src={Sedan}
-            alt="Luxury fleet"
+            src={AboutUS}
+            
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
         <div className="relative h-screen w-full">
       <div className="absolute inset-0">
-        <img
-          src="/api/placeholder/1920/1080"
-          alt="Luxury fleet"
-          className="w-full h-full object-cover"
-        />
+       
         <div className="absolute inset-0 bg-black/30" />
       </div>
       <div className="relative h-full flex flex-col items-center justify-center text-center px-4">

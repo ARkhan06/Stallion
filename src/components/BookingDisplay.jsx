@@ -118,7 +118,7 @@ const BookingsDisplay = () => {
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-bold text-gray-900">{booking.car_name}</h3>
           <div className="flex items-center space-x-2">
-            <span className="text-lg font-semibold">AED {booking.car_price}</span>
+            
             {!isEditing && (
               <>
                 <button

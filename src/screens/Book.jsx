@@ -53,11 +53,12 @@ const MapSelector = ({ location, setLocation, label, error }) => {
   }, []);
 
   const initMap = () => {
-    // Default center (Dubai)
-    const defaultCenter = [25.2048, 55.2708];
+    // Center on USA (coordinates for the geographical center of the contiguous United States)
+    const usaCenter = [39.8283, -98.5795];
+    const zoomLevel = 4; // Zoom out to show more of the country
     
     // Create map instance
-    const mapInstance = window.L.map(mapRef.current).setView(defaultCenter, 12);
+    const mapInstance = window.L.map(mapRef.current).setView(usaCenter, zoomLevel);
     
     // Add OpenStreetMap tile layer
     window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -65,7 +66,7 @@ const MapSelector = ({ location, setLocation, label, error }) => {
     }).addTo(mapInstance);
     
     // Add a marker
-    const markerInstance = window.L.marker(defaultCenter, {
+    const markerInstance = window.L.marker(usaCenter, {
       draggable: true
     }).addTo(mapInstance);
     
@@ -412,7 +413,7 @@ const BookingPage = () => {
       navigate('/login');
     }
   }, [navigate]);
-
+  
   const cars = [
     {
       id: 1,
