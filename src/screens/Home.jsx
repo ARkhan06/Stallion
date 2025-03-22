@@ -12,8 +12,9 @@ import Limo from "../assets/Limo.jpg";
 import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
 import HomeImg from "../assets/Black.jpg";
-import Home1 from "../assets/Home1.jfif";
-import Home2 from "../assets/Home2.jfif"
+import Home2 from "../assets/Home2.jfif";
+import Home3 from "../assets/Home3.jfif";
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -141,7 +142,7 @@ const Home = () => {
           </div>
           <div className="relative">
             <img 
-              src={Home1}
+              src={Home3}
               alt="Luxury sedan"
               className="rounded-lg shadow-xl"
             />

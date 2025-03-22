@@ -5,6 +5,8 @@ import { Award, Shield, DollarSign, Users, Star,Calendar, Clock, Car, Heart , Ma
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Sedan from "../assets/sedan.jpg";
+import Home1 from "../assets/Home1.jfif";
+
 import SUV1 from "../assets/SUV1.jfif";
 import Founder from "../assets/Founder.jpg"
 import AboutUS from "../assets/AboutUs.jfif"
@@ -84,7 +86,7 @@ From the very beginning, we have focused on delivering more than just a ride. Ou
             transition={{ duration: 0.5 }}
           >
             <img
-              src={SUV1}
+              src={Home1}
               alt="Luxury cars"
               className="rounded-lg shadow-xl w-full"
             />
