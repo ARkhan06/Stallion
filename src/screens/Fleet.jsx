@@ -36,7 +36,7 @@ const FleetPage = () => {
       name: 'Luxury Sedan',
       
       transmission: "Automatic",
-      seats: 5,
+      seats: 3,
       luggage: 4,
       speed: 4800,
       year: "2024"
@@ -191,9 +191,7 @@ const FleetPage = () => {
                   alt={car.name}
                   className="w-full h-56 object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-[#111827] text-white px-3 rounded-lg text-sm font-medium">
-                  {car.year}
-                </div>
+                
               </div>
               
               <div className="p-3">

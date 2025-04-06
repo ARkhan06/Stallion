@@ -64,7 +64,7 @@ const Footer = () => {
           <h4 className="font-semibold mb-3">Contact Us</h4>
           <ul className="space-y-2 text-sm text-gray-400">
            
-            <li>5800 16th N Suite 67 Arlington VA 22205</li>
+           
             <li>info@stallionsls.com</li>
             <li>+1 571-489-3273</li>
             <li>+1 703-888-8094</li>

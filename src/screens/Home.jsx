@@ -13,7 +13,7 @@ import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
 import HomeImg from "../assets/Black.jpg";
 import Home2 from "../assets/Home2.jfif";
-import Home3 from "../assets/Home3.jfif";
+import Home3 from "../assets/Services.jfif";
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
