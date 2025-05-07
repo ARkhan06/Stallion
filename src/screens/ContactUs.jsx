@@ -116,18 +116,14 @@ const ContactPage = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: ["+1 703-888-8094", "+1 571-489-3273"]
+      details: ["888-719-5750"]
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
       details: ["info@stallionsls.com"]
     },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "Location",
-      details: ["5800 16th N Suite 67 Arlington VA 22205"]
-    }
+   
   ];
 
   return (

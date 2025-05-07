@@ -66,8 +66,8 @@ const Footer = () => {
            
            
             <li>info@stallionsls.com</li>
-            <li>+1 571-489-3273</li>
-            <li>+1 703-888-8094</li>
+            <li>888-719-5750</li>
+            
           </ul>
         </div>
       </div>

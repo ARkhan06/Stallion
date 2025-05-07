@@ -4,6 +4,7 @@ import { Menu, X, LogIn, LogOut, UserPlus, User } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import * as jwtDecode from "jwt-decode";
+import PNG from '../assets/PNG 1.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -150,9 +151,9 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 className="flex items-center space-x-2"
               >
-                <span className="text-2xl font-bold bg-[#111827] text-white px-3 py-1 rounded-lg">
-                  ST
-                </span>
+                <div className=" text-white ml-3 py-1 rounded-lg flex items-center justify-center">
+                  <img src={PNG} alt="Logo" className="h-10 w-auto" />
+                </div>
                 <span className="text-xl font-semibold text-[#111827]">
                 Stallions Limousine
                 </span>
