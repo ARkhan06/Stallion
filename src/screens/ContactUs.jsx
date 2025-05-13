@@ -116,7 +116,7 @@ const ContactPage = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: ["888-719-5750"]
+      details: ["1-888-719-5750"]
     },
     {
       icon: <Mail className="w-6 h-6" />,
