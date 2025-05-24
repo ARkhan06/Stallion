@@ -77,7 +77,8 @@ const Navbar = () => {
     { label: 'About', path: '/about' },
     { label: 'Services', path: '/services' },
     { label: 'Book Ride', path: '/booking', onClick: handleBookRideClick },
-    { label: 'Contact', path: '/contact' }
+    { label: 'Contact', path: '/contact' },
+    {label:'Privacy Policy', path: '/privacy'}
   ];
 
   const authItems = isAuthenticated
@@ -167,7 +168,7 @@ const Navbar = () => {
                     key={item.path}
                     to={item.path}
                     onClick={item.onClick}
-                    className="relative px-6 py-2"
+                    className="relative px-4 py-2"
                   >
                     <motion.div
                       className="relative z-10"

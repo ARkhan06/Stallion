@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import ProfilePage from "./screens/Profile";
 import AdminDashboard from "./screens/Admin";
+import Privacy from "./screens/Privacy";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/privacy" element={<Privacy />} />
+
       <Route
         path="/admin"
         element={

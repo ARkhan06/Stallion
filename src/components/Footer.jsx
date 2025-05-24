@@ -6,7 +6,9 @@ const Footer = () => {
     { name: 'Our Fleet', path: '/fleet' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
-    { name: 'Services', path: '/services' }
+    { name: 'Services', path: '/services' },
+    {name:'Privacy Policy', path: '/privacy'}
+
   ];
 
   const serviceLinks = [
