@@ -76,9 +76,60 @@ const PrivacyPolicyPage = () => {
   ];
 
   const contactMethods = [
-    { icon: Mail, label: "Email", value: "privacy@stallionlimousine.com" },
-    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-    { icon: MapPin, label: "Address", value: "123 Luxury Drive, Premium City, PC 12345" }
+    { icon: Mail, label: "Email", value: "info@stallionsls.com" },
+    { icon: Phone, label: "Phone", value: "1-888-719-5750" }  ];
+
+  const smsTerms = [
+    {
+      num: "1",
+      title: "Consent to Receive Messages",
+      content: "By opting in, you consent to receive SMS/text messages from Stallion Limousine related to reservation confirmations and updates, chauffeur dispatch notifications (arrival, delays, trip status), trip reminders and itinerary changes, customer support communications, billing and payment notifications, and limited promotional offers and service updates."
+    },
+    {
+      num: "2",
+      title: "Message Frequency",
+      content: "Message frequency varies depending on your bookings, account activity, and service usage. Clients with active reservations may receive multiple updates per trip."
+    },
+    {
+      num: "3",
+      title: "Message & Data Rates",
+      content: "Standard message and data rates may apply based on your wireless carrier plan. Stallion Limousine is not responsible for any carrier charges."
+    },
+    {
+      num: "4",
+      title: "Opt-Out Instructions",
+      content: "You may opt out at any time by replying \"STOP\" to any message. Once opted out, you will no longer receive SMS communications unless you opt in again."
+    },
+    {
+      num: "5",
+      title: "Help & Support",
+      content: "For assistance, reply \"HELP\" or contact our dispatch team directly at the contact information provided in the Contact Us section below."
+    },
+    {
+      num: "6",
+      title: "Privacy & Data Protection",
+      content: "Your phone number and SMS consent will never be shared, sold, or distributed to third parties or affiliates for marketing purposes. Information is used strictly for service-related communication in accordance with our Privacy Policy."
+    },
+    {
+      num: "7",
+      title: "Service-Specific Communications",
+      content: "As a professional chauffeur and executive transportation provider serving corporate, affiliate, and government clients, SMS communications may include real-time chauffeur status updates, airport pickup instructions and meet-and-greet coordination, affiliate trip coordination, and security or protocol-related trip updates for VIP/government clients."
+    },
+    {
+      num: "8",
+      title: "Delivery Disclaimer",
+      content: "SMS delivery is subject to carrier network availability. Stallion Limousine is not responsible for delayed or undelivered messages."
+    },
+    {
+      num: "9",
+      title: "Eligibility",
+      content: "By subscribing, you confirm you are the account holder or have authorization from the account holder to receive messages."
+    },
+    {
+      num: "10",
+      title: "Changes to Terms",
+      content: "Stallion Limousine reserves the right to modify these SMS Terms at any time. Updates will be posted on our website."
+    }
   ];
 
   return (
@@ -132,7 +183,7 @@ const PrivacyPolicyPage = () => {
               className="flex items-center justify-center space-x-3 sm:space-x-4 text-xs sm:text-sm text-gray-500 bg-white/60 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 inline-flex shadow-lg"
             >
               <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span>Last updated: May 24, 2025</span>
+              <span>Last updated: April 04, 2026</span>
             </motion.div>
           </div>
         </motion.div>
@@ -301,8 +352,77 @@ const PrivacyPolicyPage = () => {
             </div>
           </motion.div>
 
+          {/* SMS/Text Messaging Terms - Mobile Responsive */}
+          <motion.div 
+            {...fadeInUp}
+            className="mb-12 sm:mb-16"
+          >
+            <div className="bg-white border-2 border-gray-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 hover:border-[#111827]/20 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 sm:w-24 lg:w-32 h-16 sm:h-24 lg:h-32 bg-[#111827]/5 rounded-full -mr-8 sm:-mr-12 lg:-mr-16 -mt-8 sm:-mt-12 lg:-mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+              <div className="relative z-10">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8">
+                  <div className="bg-[#111827] p-3 sm:p-4 rounded-xl sm:rounded-2xl mb-4 sm:mb-0 sm:mr-4 lg:mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Phone className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-white" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#111827]">SMS/Text Messaging Terms & Conditions</h3>
+                </div>
+                
+                <div className="space-y-6 sm:space-y-8">
+                  {smsTerms.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="flex flex-col sm:flex-row gap-4 sm:gap-6 pb-6 sm:pb-8 border-b border-gray-200 last:border-b-0 last:pb-0"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-lg bg-[#111827] text-white font-bold text-sm sm:text-base">
+                          {item.num}
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-[#111827] mb-2 sm:mb-3 text-base sm:text-lg">{item.title}</h4>
+                        <p className="text-gray-700 leading-relaxed text-sm sm:text-base">{item.content}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Contact Section - Mobile Responsive */}
-        
+          <motion.div 
+            {...fadeInUp}
+            className="mb-12 sm:mb-16"
+          >
+            <div className="text-center mb-8 sm:mb-12 px-2">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-[#111827]">
+                Get In Touch
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+                Contact us with any questions about our privacy policy or SMS terms
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+              {contactMethods.map((method, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-100 rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center hover:border-[#111827]/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+                >
+                  <div className="bg-[#111827] w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <method.icon className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-white" />
+                  </div>
+                  <h4 className="font-bold text-[#111827] mb-2 sm:mb-3 text-lg sm:text-xl">{method.label}</h4>
+                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base break-all sm:break-normal">{method.value}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Policy Updates - Mobile Responsive */}
           <motion.div 
