@@ -83,7 +83,7 @@ const PrivacyPolicyPage = () => {
     {
       num: "1",
       title: "Consent to Receive Messages",
-      content: "By opting in, you consent to receive SMS/text messages from Stallion Limousine related to reservation confirmations and updates, chauffeur dispatch notifications (arrival, delays, trip status), trip reminders and itinerary changes, customer support communications, billing and payment notifications, and limited promotional offers and service updates."
+      content: "Users may opt in to receive SMS messages verbally during a conversation. By opting in, you consent to receive SMS/text messages from Stallion Limousine related to reservation confirmations and updates, chauffeur dispatch notifications (arrival, delays, trip status), trip reminders and itinerary changes, customer support communications, and billing and payment notifications. Mobile opt in. SMS consent and phone numbers collected for SMS communication purposes will not be shared with any third party or affiliates for marketing purposes."
     },
     {
       num: "2",
