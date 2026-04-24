@@ -77,7 +77,53 @@ const PrivacyPolicyPage = () => {
 
   const contactMethods = [
     { icon: Mail, label: "Email", value: "info@stallionsls.com" },
-    { icon: Phone, label: "Phone", value: "1-888-719-5750" }  ];
+    { icon: Phone, label: "Phone", value: "1-888-719-5750" }  
+  ];
+
+  const smsOptInMethods = [
+    "Verbally during a conversation with our team",
+    "Through consent forms on our website",
+    "During the booking process for limousine services"
+  ];
+
+  const smsOptOutMethods = [
+    "Reply \"STOP\" to any SMS message you receive",
+    "Contact us directly to request removal from our messaging list",
+    "Choose not to check the SMS consent box on our forms"
+  ];
+
+  const smsHelpOptions = [
+    "Reply \"HELP\" to any SMS message for immediate assistance",
+    "Contact our dispatch team directly at 1-888-719-5750",
+    "Visit our Privacy Policy page at https://stallionsls.com/privacy"
+  ];
+
+  const smsTypesOfCommunications = [
+    {
+      title: "Reservation Confirmations & Updates",
+      description: "Booking confirmations, itinerary changes, and service reminders"
+    },
+    {
+      title: "Chauffeur Dispatch Notifications",
+      description: "Real-time driver arrival updates, delays, and trip status"
+    },
+    {
+      title: "Trip Reminders",
+      description: "Pre-trip reminders and itinerary change notifications"
+    },
+    {
+      title: "Customer Support Communications",
+      description: "Service inquiries, issues resolution, and account support"
+    },
+    {
+      title: "Billing & Payment Notifications",
+      description: "Invoice confirmations, payment reminders, and receipt delivery"
+    },
+    {
+      title: "Service-Specific Updates",
+      description: "Airport pickup instructions, meet-and-greet coordination, VIP/government protocol updates"
+    }
+  ];
 
   const smsTerms = [
     {
@@ -88,27 +134,27 @@ const PrivacyPolicyPage = () => {
     {
       num: "2",
       title: "Message Frequency",
-      content: "Message frequency varies depending on your bookings, account activity, and service usage. Clients with active reservations may receive multiple updates per trip."
+      content: "Message frequency varies depending on your bookings, account activity, and service usage. Clients with active reservations may receive multiple updates per trip. You may receive up to 2 SMS messages per week regarding your appointments or account status, though this may vary based on your service needs."
     },
     {
       num: "3",
       title: "Message & Data Rates",
-      content: "Standard message and data rates may apply based on your wireless carrier plan. Stallion Limousine is not responsible for any carrier charges."
+      content: "Standard message and data rates may apply based on your wireless carrier plan. These fees may vary if messages are sent domestically or internationally. Stallion Limousine is not responsible for any carrier charges. Please contact your wireless carrier for information about your specific messaging plan and applicable rates."
     },
     {
       num: "4",
       title: "Opt-Out Instructions",
-      content: "You may opt out at any time by replying \"STOP\" to any message. Once opted out, you will no longer receive SMS communications unless you opt in again."
+      content: "You may opt out at any time by replying \"STOP\" to any message. Once opted out, you will no longer receive SMS communications unless you opt in again. You can also contact us directly at 1-888-719-5750 to request removal from our messaging list, or choose not to check the SMS consent box on our forms."
     },
     {
       num: "5",
       title: "Help & Support",
-      content: "For assistance, reply \"HELP\" or contact our dispatch team directly at the contact information provided in the Contact Us section below."
+      content: "For assistance, reply \"HELP\" to any SMS message or contact our dispatch team directly at 1-888-719-5750. You can also visit our Privacy Policy page at https://stallionsls.com/privacy for additional support options and information."
     },
     {
       num: "6",
       title: "Privacy & Data Protection",
-      content: "Your phone number and SMS consent will never be shared, sold, or distributed to third parties or affiliates for marketing purposes. Information is used strictly for service-related communication in accordance with our Privacy Policy."
+      content: "Your phone number and SMS consent will never be shared, sold, or distributed to third parties or affiliates for marketing purposes. Information is used strictly for service-related communication in accordance with our Privacy Policy. We maintain the highest standards of data security and confidentiality for all SMS communications."
     },
     {
       num: "7",
@@ -118,17 +164,17 @@ const PrivacyPolicyPage = () => {
     {
       num: "8",
       title: "Delivery Disclaimer",
-      content: "SMS delivery is subject to carrier network availability. Stallion Limousine is not responsible for delayed or undelivered messages."
+      content: "SMS delivery is subject to carrier network availability. Stallion Limousine is not responsible for delayed or undelivered messages. Please ensure your phone number is current and that you have active service to receive messages."
     },
     {
       num: "9",
       title: "Eligibility",
-      content: "By subscribing, you confirm you are the account holder or have authorization from the account holder to receive messages."
+      content: "By subscribing, you confirm you are the account holder or have authorization from the account holder to receive messages. You must be 18 years of age or older to opt in to SMS communications from Stallion Limousine."
     },
     {
       num: "10",
       title: "Changes to Terms",
-      content: "Stallion Limousine reserves the right to modify these SMS Terms at any time. Updates will be posted on our website."
+      content: "Stallion Limousine reserves the right to modify these SMS Terms at any time. Updates will be posted on our website at https://stallionsls.com/privacy. Your continued use of our services following any changes constitutes acceptance of the updated terms."
     }
   ];
 
@@ -388,6 +434,71 @@ const PrivacyPolicyPage = () => {
                     </motion.div>
                   ))}
                 </div>
+
+                {/* SMS Additional Information - Mobile Responsive */}
+                <div className="mt-8 sm:mt-10 pt-8 sm:pt-10 border-t-2 border-gray-200">
+                  <h4 className="text-lg sm:text-xl font-bold text-[#111827] mb-6 sm:mb-8">Types of SMS Communications</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    {smsTypesOfCommunications.map((type, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-200"
+                      >
+                        <h5 className="font-bold text-[#111827] mb-2 text-sm sm:text-base">{type.title}</h5>
+                        <p className="text-gray-700 text-xs sm:text-sm">{type.description}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* SMS Opt-In Information */}
+                <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                  <div>
+                    <h4 className="text-base sm:text-lg font-bold text-[#111827] mb-4 flex items-center">
+                      <CheckCircle className="h-5 w-5 mr-2 text-green-600" />
+                      Opt-In Methods
+                    </h4>
+                    <ul className="space-y-2 sm:space-y-3">
+                      {smsOptInMethods.map((method, index) => (
+                        <li key={index} className="text-gray-700 text-sm sm:text-base leading-relaxed">• {method}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-base sm:text-lg font-bold text-[#111827] mb-4 flex items-center">
+                      <AlertTriangle className="h-5 w-5 mr-2 text-orange-600" />
+                      Opt-Out Methods
+                    </h4>
+                    <ul className="space-y-2 sm:space-y-3">
+                      {smsOptOutMethods.map((method, index) => (
+                        <li key={index} className="text-gray-700 text-sm sm:text-base leading-relaxed">• {method}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-base sm:text-lg font-bold text-[#111827] mb-4 flex items-center">
+                      <Phone className="h-5 w-5 mr-2 text-blue-600" />
+                      Get Help
+                    </h4>
+                    <ul className="space-y-2 sm:space-y-3">
+                      {smsHelpOptions.map((option, index) => (
+                        <li key={index} className="text-gray-700 text-sm sm:text-base leading-relaxed">• {option}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* SMS Consent Reminder */}
+                <div className="mt-8 sm:mt-10 bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-4 sm:p-6">
+                  <p className="text-amber-900 text-sm sm:text-base leading-relaxed">
+                    <strong>Important:</strong> SMS consent and phone numbers collected for SMS communication purposes will not be shared with any third party or affiliates for marketing purposes. Your data is protected in accordance with our comprehensive Privacy Policy.
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -436,7 +547,8 @@ const PrivacyPolicyPage = () => {
             <p className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
               We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, 
               legal, or regulatory reasons. We will notify you of any material changes by posting the updated policy on our website 
-              and updating the "Last Updated" date at the top of this page.
+              and updating the "Last Updated" date at the top of this page. Your continued use of our services following any changes 
+              constitutes acceptance of the updated terms.
             </p>
           </motion.div>
         </motion.div>
