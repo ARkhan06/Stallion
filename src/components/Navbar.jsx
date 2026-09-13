@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 import * as jwtDecode from "jwt-decode";
 import PNG from '../assets/PNG 1.png'
 
+const HERO_ROUTES = ['/', '/about', '/services', '/fleet', '/privacy'];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,6 +15,8 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+  const isHeroRoute = HERO_ROUTES.includes(location.pathname);
+  const solid = isScrolled || !isHeroRoute;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -141,42 +145,60 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'py-2 bg-white shadow-lg' : 'py-4 bg-transparent'
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        solid ? 'py-2 bg-white shadow-lg' : 'py-5 bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between">
-            <Link to="/">
-              <motion.div 
+            <Link to="/" className="flex-shrink-0">
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="flex items-center space-x-2"
               >
-                <div className=" text-white ml-3 py-1 rounded-lg flex items-center justify-center">
-                  <img src={PNG} alt="Logo" className="h-10 w-auto" />
+                <div className="ml-1 py-1 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <img
+                    src={PNG}
+                    alt="Logo"
+                    className="h-9 w-auto transition-all duration-500"
+                    style={{ filter: solid ? 'none' : 'brightness(0) invert(1)' }}
+                  />
                 </div>
-                <span className="text-xl font-semibold text-[#111827]">
-                Stallions Limousine
-                </span>
+                <div className="flex flex-col leading-none whitespace-nowrap">
+                  <span className={`text-base font-extrabold tracking-wide transition-colors duration-500 ${
+                    solid ? 'text-[#111827]' : 'text-white'
+                  }`}>
+                    STALLION
+                  </span>
+                  <span className={`text-[9px] font-semibold tracking-[2px] uppercase transition-colors duration-500 ${
+                    solid ? 'text-[#111827]/60' : 'text-white/75'
+                  }`}>
+                    Worldwide Transportation
+                  </span>
+                </div>
               </motion.div>
             </Link>
 
-            <div className="hidden lg:flex items-center">
-              <div className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+            <div className="hidden xl:flex items-center">
+              <div className={`flex items-center rounded-full px-2 py-1 transition-colors duration-500 ${
+                solid ? 'bg-gray-100' : 'bg-white/10 backdrop-blur-sm'
+              }`}>
                 {menuItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={item.onClick}
-                    className="relative px-4 py-2"
+                    className="relative px-3 py-2 whitespace-nowrap"
                   >
                     <motion.div
                       className="relative z-10"
                       whileHover={{ y: -2 }}
                     >
-                      <span className={`text-sm font-medium ${
-                        isActivePath(item.path) ? 'text-white' : 'text-gray-600'
-                      } px-2`}>
+                      <span className={`text-sm font-medium px-2 transition-colors duration-500 ${
+                        isActivePath(item.path)
+                          ? 'text-white'
+                          : solid ? 'text-gray-600' : 'text-white/85'
+                      }`}>
                         {item.label}
                       </span>
                       {isActivePath(item.path) && (
@@ -201,12 +223,14 @@ const Navbar = () => {
                     <Link
                       to={item.path}
                       onClick={item.onClick}
-                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium
-                        ${item.label === 'Login' 
+                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-500
+                        ${item.label === 'Login'
                           ? 'bg-[#111827] text-white hover:bg-gray-800'
                           : item.label === 'Sign Up'
-                          ? 'border-2 border-[#111827] text-[#111827] hover:bg-gray-50'
-                          : 'text-gray-600 hover:text-gray-900'}`}
+                          ? solid
+                            ? 'border-2 border-[#111827] text-[#111827] hover:bg-gray-50'
+                            : 'border-2 border-white text-white hover:bg-white/10'
+                          : solid ? 'text-gray-600 hover:text-gray-900' : 'text-white/85 hover:text-white'}`}
                     >
                       <item.icon size={16} />
                       <span>{item.label}</span>
@@ -218,7 +242,9 @@ const Navbar = () => {
 
             <motion.button
               whileTap={{ scale: 0.95 }}
-              className="lg:hidden p-2 rounded-lg text-[#111827] hover:bg-gray-100"
+              className={`xl:hidden p-2 rounded-lg transition-colors duration-500 ${
+                solid ? 'text-[#111827] hover:bg-gray-100' : 'text-white hover:bg-white/10'
+              }`}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -233,7 +259,7 @@ const Navbar = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden bg-white border-t mt-2"
+              className="xl:hidden bg-white border-t mt-2"
             >
               <div className="px-4 py-6 space-y-3 max-h-[70vh] overflow-y-auto">
                 {[...menuItems, ...authItems].map((item) => (
@@ -264,7 +290,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </nav>
-      <div className={`${isScrolled ? 'h-16' : 'h-20'} transition-all duration-300`} />
+      {(!isHeroRoute || solid) && <div className={`${isScrolled ? 'h-16' : 'h-20'} transition-all duration-300`} />}
     </>
   );
 };

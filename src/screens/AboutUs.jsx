@@ -51,7 +51,7 @@ const AboutPage = () => {
           transition={{ delay: 0.8 }}
           className="max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed mx-auto"
         >
-At Stallions Limousine, we specialize in delivering a premium chauffeur experience tailored to your every need. Our fleet of luxurious vehicles and professional chauffeurs ensure that you arrive in style and comfort, whether for business or pleasure. With a commitment to punctuality, discretion, and unmatched service, we make every journey memorable.        </motion.p>
+At Stallion Worldwide Transportation, we specialize in delivering a premium chauffeur experience tailored to your every need. Our fleet of luxurious vehicles and professional chauffeurs ensure that you arrive in style and comfort, whether for business or pleasure. With a commitment to punctuality, discretion, and unmatched service, we make every journey memorable.        </motion.p>
       </div>
     </div>
       </motion.div>
@@ -69,7 +69,7 @@ At Stallions Limousine, we specialize in delivering a premium chauffeur experien
             <div>
               <h2 className="text-4xl font-bold mb-6">Our Journey</h2>
               <p className="text-gray-600">
-              The journey of Stallions Limousine began with a simple yet powerful vision: to redefine the way people experience luxury transportation. What started as a small, family-owned business with a single vehicle has grown into a trusted name in the industry, known for impeccable service and a commitment to excellence.
+              The journey of Stallion Worldwide Transportation began with a simple yet powerful vision: to redefine the way people experience luxury transportation. What started as a small, family-owned business with a single vehicle has grown into a trusted name in the industry, known for impeccable service and a commitment to excellence.
 
 From the very beginning, we have focused on delivering more than just a ride. Our goal has always been to create memorable experiences for our clients, whether it’s for a wedding, a corporate event, or a special celebration. Each journey is an opportunity to make lasting impressions, and we take pride in being a part of those important moments.              </p>
             </div>
@@ -104,7 +104,7 @@ From the very beginning, we have focused on delivering more than just a ride. Ou
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
-            <div className="w-20 h-1 bg-orange-500 mx-auto"></div>
+            <div className="w-20 h-1 bg-[#2563eb] mx-auto"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-8">
@@ -122,7 +122,7 @@ From the very beginning, we have focused on delivering more than just a ride. Ou
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="bg-orange-500 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <div className="bg-[#2563eb] rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                   {item.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-2">{item.title}</h3>
@@ -156,12 +156,12 @@ From the very beginning, we have focused on delivering more than just a ride. Ou
             <div>
               <h2 className="text-4xl font-bold mb-6">Meet Our Founder</h2>
               <p className="text-gray-600">
-              At the heart of Stallions Limousine is our founder, a passionate entrepreneur with a vision to elevate the transportation experience. With a deep-rooted belief in delivering exceptional service and making every journey unforgettable, Our founder established the company with one simple goal: to provide clients with luxury, reliability, and comfort—every time.              </p>
+              At the heart of Stallion Worldwide Transportation is our founder, a passionate entrepreneur with a vision to elevate the transportation experience. With a deep-rooted belief in delivering exceptional service and making every journey unforgettable, Our founder established the company with one simple goal: to provide clients with luxury, reliability, and comfort—every time.              </p>
             </div>
             <div>
               <h2 className="text-4xl font-bold mb-6">Leadership & Expertise</h2>
               <p className="text-gray-600">
-              At Stallions Limousine, our leadership team is the cornerstone of our success. Led by our founder and supported by a dedicated group of professionals, we bring decades of combined experience and expertise to the limousine and transportation industry. Our commitment to excellence drives every aspect of our service, ensuring that each client receives the highest level of care and attention.              </p>
+              At Stallion Worldwide Transportation, our leadership team is the cornerstone of our success. Led by our founder and supported by a dedicated group of professionals, we bring decades of combined experience and expertise to the limousine and transportation industry. Our commitment to excellence drives every aspect of our service, ensuring that each client receives the highest level of care and attention.              </p>
             </div>
           </motion.div>
         </div>

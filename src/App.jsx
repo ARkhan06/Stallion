@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Home from "./screens/Home";
 import FleetPage from "./screens/Fleet";
 import "./index.css";
@@ -14,14 +13,10 @@ import AdminRoute from "./components/AdminRoute";
 import ProfilePage from "./screens/Profile";
 import AdminDashboard from "./screens/Admin";
 import Privacy from "./screens/Privacy";
-import Splash from "./components/Splash";
 
 function App() {
-  const [splashClosed, setSplashClosed] = useState(false);
-
   return (
     <>
-      <Splash onClose={() => setSplashClosed(true)} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/fleet" element={<FleetPage />} />

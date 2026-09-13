@@ -12,6 +12,7 @@ import Sedan from "../assets/sedan.jpg";
 import Limo from "../assets/Limo.jpg";
 import Van from "../assets/Van.jpg";
 import Bus from "../assets/bus.jpg";
+import Maybach from "../assets/maybach.jpeg";
 import fleet from "../assets/fleet.jfif"
 import CarDetailModal from '../components/CarDetail'; 
 
@@ -30,11 +31,22 @@ const FleetPage = () => {
   };
 
   const cars = [
-    { 
-      id: 1, 
-      image: Sedan, 
+    {
+      id: 7,
+      image: Maybach,
+      name: 'Mercedes-Maybach S-Class',
+
+      transmission: "Automatic",
+      seats: 3,
+      luggage: 4,
+      speed: 5200,
+      year: "2024"
+    },
+    {
+      id: 1,
+      image: Sedan,
       name: 'Luxury Sedan',
-      
+
       transmission: "Automatic",
       seats: 3,
       luggage: 4,

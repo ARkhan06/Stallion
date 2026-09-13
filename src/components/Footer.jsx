@@ -23,7 +23,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-6">
         <div>
           <Link to="/" className="block">
-            <h3 className="text-xl font-bold mb-3">Stallions Limousine</h3>
+            <h3 className="text-xl font-bold mb-3">Stallion Worldwide Transportation</h3>
           </Link>
           <p className="text-gray-400 text-sm">
             Premium Car Chauffeur Services for those who appreciate quality and comfort.
@@ -76,7 +76,7 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-gray-800">
         <p className="text-center text-gray-400 text-sm">
-          © {new Date().getFullYear()} Stallion. All rights reserved.
+          © {new Date().getFullYear()} Stallion Worldwide Transportation. All rights reserved.
         </p>
       </div>
     </footer>
